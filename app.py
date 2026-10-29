@@ -5,9 +5,9 @@ from rapidfuzz import fuzz
 
 # Import your scraper function
 try:
-    from openrice_daily import enrich_with_details as enrich_with_details
+    from openrice_daily import main() as run_openrice_scraper
 except ImportError:
-    enrich_with_details = None
+    run_openrice_scraper = None
 
 st.set_page_config(page_title="OpenRice Data Matching Portal", layout="wide")
 st.title("Data Matching & Reconciliation Portal")
@@ -63,12 +63,12 @@ st.divider()
 st.subheader("Step 3: Run Daily OpenRice Scraping")
 
 if st.button("Run OpenRice Scraper"):
-    if enrich_with_details is None:
-        st.error("`enrich_with_details` function not found in `openrice_daily.py`.")
+    if run_openrice_scraper is None:
+        st.error("`run_openrice_scraper` function not found in `openrice_daily.py`.")
     else:
         with st.spinner("Scraping Openrice... This may take a few moments."):
             try:
-                st.session_state.scraped_df = enrich_with_details()
+                st.session_state.scraped_df = run_openrice_scraper()
                 st.success(f"Scraping complete. Retrieved {len(st.session_state.scraped_df)} records.")
             except Exception as e:
                 st.error(f"Scraper encountered an error: {e}")
