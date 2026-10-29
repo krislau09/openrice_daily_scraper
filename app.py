@@ -5,7 +5,7 @@ from rapidfuzz import fuzz
 
 # Import your scraper function
 try:
-    from openrice_daily import main() as run_openrice_scraper
+    from openrice_daily import main as run_openrice_scraper
 except ImportError:
     run_openrice_scraper = None
 
